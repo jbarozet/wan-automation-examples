@@ -44,6 +44,12 @@ meraki:
 
 - python and terraform examples
 
+docs:
+
+- [Getting Started](docs/01-Getting-Started.md)
+- [Authentication](docs/02-Authentication.md)
+- And a few more docs
+
 ## Notes
 
 The `CODE_OF_CONDUCT.md` reflects our standards for interaction.
