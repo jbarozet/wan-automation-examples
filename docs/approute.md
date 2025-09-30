@@ -13,7 +13,7 @@ Realtime monitoring APIs query device state and information in real time.
 Example: Get realtime tunnel performance for a specific tunnel between two sdwan edge routers
 
 ```bash
-❯ python app.py approute-device
+❯ python approute.py approute-device
 Enter System IP address : 10.0.0.1
 Enter Remote System IP address : 10.0.0.2
 Enter color : mpls
@@ -70,7 +70,7 @@ Once the query conditions are determined, you then provide the fields, histogram
 
 ```bash
 ❯ python app.py
-Usage: app.py [OPTIONS] COMMAND [ARGS]...
+Usage: approute.py [OPTIONS] COMMAND [ARGS]...
 
   Command line tool for to collect application names and tunnel performances.
 
@@ -93,7 +93,7 @@ Commands:
 Example
 
 ```bash
-❯ python app.py approute-fields
+❯ python approute.py approute-fields
 vdevice_name(string)  local_system_ip(string)   src_ip(string)    loss_percentage(number)  name(string)
 host_name(string)     remote_system_ip(string)  dst_ip(string)    jitter(number)           loss(number)
 device_model(string)  local_color(string)       src_port(number)  tx_pkts(number)
@@ -150,7 +150,7 @@ payload snippet:
 Sample response:
 
 ```bash
-❯ python app.py approute-stats
+❯ python approute.py approute-stats
 Enter Router-1 System IP address : 10.0.0.1
 Enter Router-2 System IP address : 10.0.0.2
 
