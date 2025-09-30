@@ -33,10 +33,12 @@ bruno:
 
 - Similar to postman collections
 - A few examples of APIs
+- Check [README](bruno/README.md)
 
 catalystwan:
 
-- python and terraform examples
+- python example. Check [README](catalystwan/python/README.md)
+- terraform examples
 
 meraki:
 
