@@ -1,16 +1,22 @@
 # Python Examples
 
-## Setup Python Virtual Environment
+## Setup Python Environment
 
-Install uv by running the following command in Terminal:
+Install [uv](https://github.com/astral-sh/uv) with standalone installers:
 
-`curl -LsSf https://astral.sh/uv/install.sh | sh`
+```shell
+# On macOS and Linux.
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
 
-## Init
+```shell
+# On Windows.
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
 
 Initialize and install dependancies:
 
-```bash
+```shell
 uv sync
 ```
 
@@ -52,10 +58,10 @@ All tests will save API response payloads in `output/payloads` folder to easily 
 
 ## Usage
 
-Run python script using `uv run <script.py>`
+Run python scripts using `uv run <script.py>`
 
 Example:
 
-```console
+```shell
 uv run users.py ls
 ```
