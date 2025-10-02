@@ -1,24 +1,8 @@
-# Python Examples
+# Cisco Catalyst SD-WAN Manager APIs - Python Examples
 
-## Setup Python Environment
+This folder provides Python examples for interacting with Cisco Catalyst SD-WAN Manager APIs. Explore practical demonstrations for automating network configurations, monitoring, and integrations.
 
-Install [uv](https://github.com/astral-sh/uv) with standalone installers:
-
-```shell
-# On macOS and Linux.
-curl -LsSf https://astral.sh/uv/install.sh | sh
-```
-
-```shell
-# On Windows.
-powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
-```
-
-Initialize and install dependancies:
-
-```shell
-uv sync
-```
+Please note these examples are for demonstration purposes only and not production-ready.
 
 ## Setup local environment variables to provide manager instance details
 
@@ -54,7 +38,7 @@ export manager_password=mysuperpassword
 % source init.sh
 ```
 
-All tests will save API response payloads in `output/payloads` folder to easily check the json content.
+All tests will save API response payloads in `output/` folder to easily check the json content.
 
 ## Usage
 
