@@ -2,15 +2,13 @@
 
 This collection provides several examples of working with the Cisco Catalyst SD-WAN and Meraki Dashboard APIs.
 
-## Clone Repository
+## Collections
 
 This repository has 3 collections:
 
 - Cisco-SD-WAN: Includes examples for Cisco Catalyst SD-WAN Manager.
 - Meraki: Features examples for the Meraki Dashboard API.
 - Misc: Additional examples and resources.
-
-## Open Collections
 
 Start Bruno.app then open collections from the "Collections" folder.
 
@@ -19,6 +17,8 @@ Start Bruno.app then open collections from the "Collections" folder.
 - Various examples: click "Open Collection, find and select "Misc" folder
 
 ## Secrets Management
+
+### Overview
 
 In any collection, there are secrets that need to be managed. These secrets can be anything such as API keys, passwords, or tokens.
 
@@ -30,8 +30,6 @@ There are two ways in which developers share bruno collections:
 - Export the collection to a file and share it
 
 In both these cases we want to ensure that the secrets are stripped out of the collection before it is shared.
-
-## Solution
 
 Bruno offers three (3) approaches to manage secrets in collections.
 
