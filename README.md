@@ -52,6 +52,26 @@ docs:
 - [Authentication](docs/02-Authentication.md)
 - And a few more docs
 
+## Setup Python Environment
+
+Install [uv](https://github.com/astral-sh/uv) with standalone installers:
+
+```shell
+# On macOS and Linux.
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+```shell
+# On Windows.
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+Initialize and install dependancies:
+
+```shell
+uv sync
+```
+
 ## Notes
 
 The `CODE_OF_CONDUCT.md` reflects our standards for interaction.
