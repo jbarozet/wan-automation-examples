@@ -66,11 +66,13 @@ class Manager:
         self._authenticate()
         if self.dataservice_base_url:  # Check if authentication was successful
             self.status = True
+            print("Authentication successful.")
             logger.info("Successfully authenticated with SD-WAN Manager.")
             logger.info(f"Session headers: {self.session.headers}")
             logger.info(f"Base URL: {self.dataservice_base_url}")
 
         else:
+            print("Authentication failed. Please check sdwan_api.log for details.")
             logger.error("Failed to authenticate with SD-WAN Manager. Exiting.")
             sys.exit(1)  # Exit if authentication fails
 
@@ -97,7 +99,9 @@ class Manager:
             return self.jsessionid
 
         except requests.exceptions.RequestException as e:
-            logger.error(f"Login failed: {e}. Response: {response.text if response is not None else 'No response'}\n")
+            logger.error(
+                f"Login failed: {e}. Response: {response.text if response is not None else 'No response'}\n"
+            )
             return None  # Indicate failure
         except ValueError as e:
             logger.error(f"Login failed: {e}\n")
@@ -205,7 +209,9 @@ class Manager:
             requests.exceptions.RequestException: If the API call fails or manager is not authenticated.
         """
         if not self.status:
-            raise requests.exceptions.RequestException("Manager not authenticated. Cannot make API call.")
+            raise requests.exceptions.RequestException(
+                "Manager not authenticated. Cannot make API call."
+            )
 
         url = cast(str, self.dataservice_base_url) + path
         logger.info(f"Making GET request to: {url} with params: {params}")
@@ -229,7 +235,9 @@ class Manager:
             requests.exceptions.RequestException: If the API call fails or manager is not authenticated.
         """
         if not self.status:
-            raise requests.exceptions.RequestException("Manager not authenticated. Cannot make API call.")
+            raise requests.exceptions.RequestException(
+                "Manager not authenticated. Cannot make API call."
+            )
 
         url = cast(str, self.dataservice_base_url) + path
         logger.info(f"Making POST request to: {url} with payload: {payload}")
@@ -254,7 +262,9 @@ class Manager:
             requests.exceptions.RequestException: If the API call fails or manager is not authenticated.
         """
         if not self.status:
-            raise requests.exceptions.RequestException("Manager not authenticated. Cannot make API call.")
+            raise requests.exceptions.RequestException(
+                "Manager not authenticated. Cannot make API call."
+            )
 
         url = cast(str, self.dataservice_base_url) + path
         logger.info(f"Making PUT request to: {url} with payload: {payload}")
@@ -279,7 +289,9 @@ class Manager:
             requests.exceptions.RequestException: If the API call fails or manager is not authenticated.
         """
         if not self.status:
-            raise requests.exceptions.RequestException("Manager not authenticated. Cannot make API call.")
+            raise requests.exceptions.RequestException(
+                "Manager not authenticated. Cannot make API call."
+            )
 
         url = cast(str, self.dataservice_base_url) + path
         response = self.session.delete(url=url, params=params)
@@ -296,6 +308,24 @@ class Manager:
                 return {"message": "Operation successful, no JSON response content."}
         else:
             return {"message": "Operation successful, no content returned."}
+
+    def logout(self):
+        """
+        Logs out of the SD-WAN Manager session.
+        """
+
+        if not self.status:
+            raise requests.exceptions.RequestException(
+                "Manager not authenticated. Cannot make API call."
+            )
+
+        api = "/logout"
+        url = self.base_url + api
+        # url = cast(str, self.dataservice_base_url) + path
+        logger.info(f"Logout: {url}")
+        response = self.session.post(url=url)
+        response.raise_for_status()
+        logger.info("Successfully logged out of SD-WAN Manager.")
 
 
 # ----------------------------------------------------------

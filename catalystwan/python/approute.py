@@ -32,7 +32,9 @@ def cli():
 
 
 # -----------------------------------------------------------------------------
-def save_json(payload: dict, filename: str = "payload", directory: str = "./output/payloads/"):
+def save_json(
+    payload: dict, filename: str = "payload", directory: str = "./output/payloads/"
+):
     """Save json response payload to a file
 
     Args:
@@ -277,8 +279,12 @@ def approute_stats():
     try:
         response = manager._api_post(api_path, payload=payload_r1_r2)
         app_route_stats = response.get("data")
-        save_json(response, "approute_stats_r1r2_header_data", "output/payloads/approute/")
-        save_json(app_route_stats, "approute_stats_r1r2_data", "output/payloads/approute/")
+        save_json(
+            response, "approute_stats_r1r2_header_data", "output/payloads/approute/"
+        )
+        save_json(
+            app_route_stats, "approute_stats_r1r2_data", "output/payloads/approute/"
+        )
         app_route_stats_headers = [
             "Tunnel name",
             "vQoE score",
@@ -289,7 +295,8 @@ def approute_stats():
         table = list()
 
         click.echo(
-            "\nAverage App route statistics between %s and %s for last 1 hour\n" % (rtr1_systemip, rtr2_systemip)
+            "\nAverage App route statistics between %s and %s for last 1 hour\n"
+            % (rtr1_systemip, rtr2_systemip)
         )
 
         for item in app_route_stats:
@@ -302,14 +309,20 @@ def approute_stats():
             ]
             table.append(tr)
 
-        click.echo(tabulate.tabulate(table, app_route_stats_headers, tablefmt="fancy_grid"))
+        click.echo(
+            tabulate.tabulate(table, app_route_stats_headers, tablefmt="fancy_grid")
+        )
 
         # Get app route statistics for tunnels from router-2 to router-1
         response = manager._api_post(api_path, payload=payload_r2_r1)
         app_route_stats = response.get("data")
 
-        save_json(response, "approute_stats_r2r1_header_data", "output/payloads/approute/")
-        save_json(app_route_stats, "approute_stats_r2r1_data", "output/payloads/approute/")
+        save_json(
+            response, "approute_stats_r2r1_header_data", "output/payloads/approute/"
+        )
+        save_json(
+            app_route_stats, "approute_stats_r2r1_data", "output/payloads/approute/"
+        )
 
         app_route_stats_headers = [
             "Tunnel name",
@@ -321,7 +334,8 @@ def approute_stats():
         table = list()
 
         click.echo(
-            "\nAverage App route statistics between %s and %s for last 1 hour\n" % (rtr2_systemip, rtr1_systemip)
+            "\nAverage App route statistics between %s and %s for last 1 hour\n"
+            % (rtr2_systemip, rtr1_systemip)
         )
         for item in app_route_stats:
             tr = [
@@ -332,7 +346,9 @@ def approute_stats():
                 item["jitter"],
             ]
             table.append(tr)
-        click.echo(tabulate.tabulate(table, app_route_stats_headers, tablefmt="fancy_grid"))
+        click.echo(
+            tabulate.tabulate(table, app_route_stats_headers, tablefmt="fancy_grid")
+        )
 
     except requests.exceptions.RequestException as e:
         print(f"An unexpected error occurred: {e}")
@@ -357,11 +373,14 @@ def approute_device():
 
     # API path with parameters
 
-    api_path = "/device/app-route/statistics?remote-system-ip=%s&local-color=%s&remote-color=%s&deviceId=%s" % (
-        rtr2_systemip,
-        color,
-        color,
-        rtr1_systemip,
+    api_path = (
+        "/device/app-route/statistics?remote-system-ip=%s&local-color=%s&remote-color=%s&deviceId=%s"
+        % (
+            rtr2_systemip,
+            color,
+            color,
+            rtr1_systemip,
+        )
     )
 
     # Fetch users
@@ -384,7 +403,10 @@ def approute_device():
         ]
         table = list()
 
-        click.echo("\nRealtime App route statistics for %s to %s\n" % (rtr1_systemip, rtr2_systemip))
+        click.echo(
+            "\nRealtime App route statistics for %s to %s\n"
+            % (rtr1_systemip, rtr2_systemip)
+        )
         for item in app_route_stats:
             tr = [
                 item["vdevice-host-name"],
@@ -399,9 +421,13 @@ def approute_device():
             ]
             table.append(tr)
         try:
-            click.echo(tabulate.tabulate(table, app_route_stats_headers, tablefmt="fancy_grid"))
+            click.echo(
+                tabulate.tabulate(table, app_route_stats_headers, tablefmt="fancy_grid")
+            )
         except UnicodeEncodeError:
-            click.echo(tabulate.tabulate(table, app_route_stats_headers, tablefmt="grid"))
+            click.echo(
+                tabulate.tabulate(table, app_route_stats_headers, tablefmt="grid")
+            )
 
     except requests.exceptions.RequestException as e:
         print(f"An unexpected error occurred: {e}")
@@ -434,4 +460,13 @@ if __name__ == "__main__":
     cli.add_command(approute_fields)
     cli.add_command(approute_stats)
     cli.add_command(approute_device)
-    cli()
+
+    try:
+        cli()
+
+    finally:
+        # This block will always execute after cli() finishes,
+        # whether commands succeeded, failed, or no command was run.
+        if manager:  # Ensure manager was successfully initialized
+            manager.logout()
+            print("\n--- Logged out from SD-WAN Manager ---")

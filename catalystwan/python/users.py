@@ -161,8 +161,6 @@ def delete():
             print(f"Status: {e.response.status_code}, Response: {e.response.text}")
         return
 
-    log_file_path = "application.log"  # You can make this more dynamic if needed
-
 
 # -----------------------------------------------------------------------------
 if __name__ == "__main__":
@@ -186,4 +184,12 @@ if __name__ == "__main__":
     cli.add_command(add)
     cli.add_command(delete)
 
-    cli()
+    try:
+        cli()
+
+    finally:
+        # This block will always execute after cli() finishes,
+        # whether commands succeeded, failed, or no command was run.
+        if manager:  # Ensure manager was successfully initialized
+            manager.logout()
+            print("\n--- Logged out from SD-WAN Manager ---")

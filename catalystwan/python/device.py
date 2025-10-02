@@ -196,4 +196,13 @@ if __name__ == "__main__":
     cli.add_command(ls)
     cli.add_command(get_config)
     cli.add_command(get_device_by_ip)
-    cli()
+
+    try:
+        cli()
+
+    finally:
+        # This block will always execute after cli() finishes,
+        # whether commands succeeded, failed, or no command was run.
+        if manager:  # Ensure manager was successfully initialized
+            manager.logout()
+            print("\n--- Logged out from SD-WAN Manager ---")
