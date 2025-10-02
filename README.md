@@ -40,11 +40,11 @@ bruno:
 catalystwan:
 
 - python example. Check [README](catalystwan/python/README.md)
-- terraform examples
+- terraform examples, check [README](catalystwan/terraform/README.md)
 
 meraki:
 
-- python and terraform examples
+- python and terraform examples - TBD
 
 docs:
 
