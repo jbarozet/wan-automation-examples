@@ -24,6 +24,7 @@ resource "sdwan_service_lan_vpn_feature" "Service_VPN_feature" {
     {
       network_address = "0.0.0.0"
       subnet_mask     = "0.0.0.0"
+      gateway         = "nextHop"
       next_hops = [
         {
           address                 = "172.16.1.1"
@@ -34,7 +35,8 @@ resource "sdwan_service_lan_vpn_feature" "Service_VPN_feature" {
   ]
   ipv6_static_routes = [
     {
-      prefix = "2001:0:0:1::0/12"
+      prefix  = "2001:0:0:1::0/12"
+      gateway = "nextHop"
       next_hops = [
         {
           address                 = "2001:0:0:1::0"
@@ -45,35 +47,34 @@ resource "sdwan_service_lan_vpn_feature" "Service_VPN_feature" {
   ]
 }
 
-# resource "sdwan_service_lan_vpn_interface_ethernet_feature" "Service_VPN_Ethernet_Feature" {
-#   name                       = "TF_VPN_Ethernet"
-#   description                = "Terraform VPN Ethernet interface"
-#   feature_profile_id         = sdwan_service_feature_profile.Service_Profile.id
-#   service_lan_vpn_feature_id = sdwan_service_lan_vpn_feature.Service_VPN_feature.id
-#   shutdown                   = false
-#   interface_name             = local.config.service.interface_name
-#   interface_description      = "LAN"
-#   ipv4_address               = local.config.service.interface_ip_address
-#   ipv4_subnet_mask           = local.config.service.interface_ip_mask
-#   ipv4_nat                   = false
-#   ipv4_nat_type              = "pool"
-#   ipv4_nat_range_start       = "1.2.3.4"
-#   ipv4_nat_range_end         = "4.5.6.7"
-#   ipv4_nat_prefix_length     = 1
-#   ipv4_nat_overload          = true
-#   ipv4_nat_loopback          = "123"
-#   ipv4_nat_udp_timeout       = 123
-#   ipv4_nat_tcp_timeout       = 123
-#   static_nats = [
-#     {
-#       source_ip    = "1.2.3.4"
-#       translate_ip = "2.3.4.5"
-#       direction    = "inside"
-#       source_vpn   = 0
-#     }
-#   ]
-#   ipv6_nat = true
-#   nat64    = false
-# tracker  = "TRACKER1"
+resource "sdwan_service_lan_vpn_interface_ethernet_feature" "Service_VPN_Ethernet_Feature" {
+  name                       = "TF_VPN_Interface"
+  description                = "Terraform VPN Interface"
+  feature_profile_id         = sdwan_service_feature_profile.Service_Profile.id
+  service_lan_vpn_feature_id = sdwan_service_lan_vpn_feature.Service_VPN_feature.id
+  shutdown                   = false
+  interface_name             = local.config.service.interface_name
+  interface_description      = "Loopback for service VPN"
+  ipv4_address               = local.config.service.interface_ip_address
+  ipv4_subnet_mask           = local.config.service.interface_ip_mask
+  ipv4_nat                   = false
+  ipv4_nat_type              = "pool"
+  ipv4_nat_range_start       = "1.2.3.4"
+  ipv4_nat_range_end         = "4.5.6.7"
+  ipv4_nat_prefix_length     = 1
+  ipv4_nat_overload          = true
+  ipv4_nat_loopback          = "123"
+  ipv4_nat_udp_timeout       = 123
+  ipv4_nat_tcp_timeout       = 123
+  static_nats = [
+    {
+      source_ip    = "1.2.3.4"
+      translate_ip = "2.3.4.5"
+      direction    = "inside"
+      source_vpn   = 0
+    }
+  ]
+  ipv6_nat = true
+  nat64    = false
 
-# }
+}

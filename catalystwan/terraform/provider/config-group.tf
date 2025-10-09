@@ -7,4 +7,26 @@ resource "sdwan_configuration_group" "example" {
     sdwan_transport_feature_profile.Transport_Profile.id,
     sdwan_service_feature_profile.Service_Profile.id
   ]
+  devices = [{
+    id     = "C8K-3A3DD488-D04F-3204-90F5-2E754FD14877"
+    deploy = true
+    variables = [
+      {
+        name  = "host_name"
+        value = "edge1-paris"
+      },
+      {
+        name  = "site_id"
+        value = "201"
+      },
+      {
+        name  = "system_ip"
+        value = "10.0.0.3"
+      },
+      {
+        name  = "pseudo_commit_timer"
+        value = 30
+      }
+    ]
+  }]
 }
