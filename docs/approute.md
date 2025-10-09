@@ -1,4 +1,4 @@
-# USAGE
+# App Route Statistics
 
 3 Main Monitoring API Categories:
 
@@ -10,10 +10,12 @@
 
 Realtime monitoring APIs query device state and information in real time.
 
+Real-time monitoring API are very CPU intensive and should be used for troubleshooting only. These should not be used continuously for active monitoring of the devices.
+
 Example: Get realtime tunnel performance for a specific tunnel between two sdwan edge routers
 
 ```bash
-❯ python approute.py approute-device
+❯ uv run approute.py approute-device
 Enter System IP address : 10.0.0.1
 Enter Remote System IP address : 10.0.0.2
 Enter color : mpls
@@ -41,8 +43,7 @@ Realtime App route statistics for 10.0.0.1 to 10.0.0.2
 
 ### Overview
 
-The SD-WAN Manager NMS statistics database collects statistics from all WAN Edge routers periodically, starting from when they joined the overlay network.
-The SD-WAN Manager API query language allows you to build queries that retrieve selected statistics from the SD-WAN Manager NMS statistics database
+The SD-WAN Manager NMS statistics database collects statistics from all WAN Edge routers periodically, starting from when they joined the overlay network. The SD-WAN Manager API query language allows you to build queries that retrieve selected statistics from the SD-WAN Manager NMS statistics database
 
 Simple Query
 
@@ -62,38 +63,18 @@ Aggregation API query is created using below constructs
   - Histogram
   - Metrics
 
-For example, we need to first define Query Conditions(rules) Based on these rules the data records are extracted from vManage. Some of the common supported rules are to select based on stats entry_time to get statistics in specific intervals of time, then use various query fields like local system-ip, local color, remote color to retrieve the records for specific vEdge routers transport circuits in that time interval.
+We need to first define Query Conditions(rules).
+
+Based on these rules the data records are extracted from SD-WAN Manager. Some of the common supported rules are to select based on stats entry_time to get statistics in specific intervals of time, then use various query fields like local system-ip, local color, remote color to retrieve the records for specific routers transport circuits in that time interval.
 
 Once the query conditions are determined, you then provide the fields, histogram and metrics, which determine how data is aggregated.
 
-### Commands available
-
-```bash
-❯ python app.py
-Usage: approute.py [OPTIONS] COMMAND [ARGS]...
-
-  Command line tool for to collect application names and tunnel performances.
-
-Options:
-  --help  Show this message and exit.
-
-Commands:
-  app-list         Retrieve the list of Applications.
-  app-list2        Retrieve the list of Applications.
-  app-qosmos       Retrieve the list of Qosmos Applications (original...
-  approute-device  Get Realtime Approute statistics for a specific tunnel...
-  approute-fields  Retrieve App route Aggregation API Query fields.
-  approute-stats   Create Average Approute statistics for all tunnels...
-
->
-```
-
 ### Example-1 - Query fields
 
-Example
+The following example show how to get available fields:
 
 ```bash
-❯ python approute.py approute-fields
+❯ uv run approute.py approute-fields
 vdevice_name(string)  local_system_ip(string)   src_ip(string)    loss_percentage(number)  name(string)
 host_name(string)     remote_system_ip(string)  dst_ip(string)    jitter(number)           loss(number)
 device_model(string)  local_color(string)       src_port(number)  tx_pkts(number)
@@ -104,7 +85,9 @@ vip_idx(number)       window(number)            latency(number)   rx_octets(numb
 ❯ 
 ```
 
-### Example-2 - approute-stats
+### Example-2 - Retrieves average latency/loss/jitter
+
+Now that we have the available fields, we can build our query.
 
 The following example query retrieves average latency/loss/jitter and vqoe score for the last hour for all tunnels between routers with provided local and remote system-ip.
 
@@ -147,10 +130,10 @@ payload snippet:
 }
 ```
 
-Sample response:
+Example using approute.py script:
 
 ```bash
-❯ python approute.py approute-stats
+❯ uv run approute.py approute-stats
 Enter Router-1 System IP address : 10.0.0.1
 Enter Router-2 System IP address : 10.0.0.2
 
