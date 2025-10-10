@@ -7,4 +7,26 @@ resource "sdwan_configuration_group" "example" {
     sdwan_transport_feature_profile.Transport_Profile.id,
     sdwan_service_feature_profile.Service_Profile.id
   ]
+  devices = [{
+    id     = local.config.system.uuid
+    deploy = true
+    variables = [
+      {
+        name  = "host_name"
+        value = local.config.system.hostname
+      },
+      {
+        name  = "site_id"
+        value = local.config.system.site_id
+      },
+      {
+        name  = "system_ip"
+        value = local.config.system.system_ip
+      },
+      {
+        name  = "pseudo_commit_timer"
+        value = 30
+      }
+    ]
+  }]
 }

@@ -109,8 +109,8 @@ resource "sdwan_system_logging_feature" "logging_parcel" {
   ipv4_servers = [
     {
       hostname_ip                   = "1.1.1.1"
-      vpn                           = 512
-      source_interface              = "GigabitEthernet3"
+      vpn                           = 0
+      source_interface              = "GigabitEthernet1"
       priority                      = "informational"
       tls_enable                    = true
       tls_properties_custom_profile = true
@@ -172,12 +172,12 @@ resource "sdwan_system_bfd_feature" "example" {
   ]
 }
 
-resource "sdwan_system_mrf_feature" "mrf_parcel" {
-  name                    = "TFP_MRF_Parcel"
-  description             = "Terraform MRF parcel example"
-  feature_profile_id      = sdwan_system_feature_profile.System_Profile.id
-  region_id               = local.config.mrf.region_id
-  role                    = local.config.mrf.role
-  enable_migration_to_mrf = "enabled"
-  migration_bgp_community = 100
-}
+# resource "sdwan_system_mrf_feature" "mrf_parcel" {
+#   name                    = "TFP_MRF_Parcel"
+#   description             = "Terraform MRF parcel example"
+#   feature_profile_id      = sdwan_system_feature_profile.System_Profile.id
+#   region_id               = local.config.mrf.region_id
+#   role                    = local.config.mrf.role
+#   enable_migration_to_mrf = "enabled"
+#   migration_bgp_community = 100
+# }

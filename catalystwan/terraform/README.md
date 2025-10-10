@@ -51,11 +51,11 @@ This option is excellent for users who prefer a more declarative, "intent-based"
 ## Folders
 
 - `provider`: example leveraging CiscoDevNet/sdwan Terraform Provider:
-- `model`: example leveraging netascode/nac-sdwan/sdwan Terraform Module
+- `module`: example leveraging netascode/nac-sdwan/sdwan Terraform Module
 
-## Terraform Model
+## Terraform Module
 
-Go to `model` folder.
+Go to `module` folder.
 
 Copy `config-example.yaml` to `config.yaml` and fill in parameters.
 
@@ -80,6 +80,8 @@ terraform destroy --auto-approve
 ```
 
 Note that this will only destroy configuration that was created by Terraform.
+
+For more information and examples, visit: <https://netascode.cisco.com/docs/start/sdwan/first_steps/>
 
 ## Terraform Provider
 
@@ -109,7 +111,9 @@ terraform destroy --auto-approve
 
 Note that this will only destroy configuration that was created by Terraform.
 
-## Upgrade sdwan provider
+For more information and examples, visit: <https://registry.terraform.io/providers/CiscoDevNet/sdwan/latest/docs>
+
+## Upgrade SD-WAN Terraform provider
 
 To upgrade the latest acceptable version of each provider, use:
 
@@ -127,9 +131,3 @@ export TF_LOG=TRACE
 ```
 
 This will save logs to file.log in the folder where you run terraform.
-
-## Resources
-
-
-
-
