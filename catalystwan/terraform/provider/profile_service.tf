@@ -33,18 +33,18 @@ resource "sdwan_service_lan_vpn_feature" "Service_VPN_feature" {
       ]
     }
   ]
-  ipv6_static_routes = [
-    {
-      prefix  = "2001:0:0:1::0/12"
-      gateway = "nextHop"
-      next_hops = [
-        {
-          address                 = "2001:0:0:1::0"
-          administrative_distance = 1
-        }
-      ]
-    }
-  ]
+  # ipv6_static_routes = [
+  #   {
+  #     prefix  = "2001:0:0:1::0/12"
+  #     gateway = "nextHop"
+  #     next_hops = [
+  #       {
+  #         address                 = "2001:0:0:1::0"
+  #         administrative_distance = 1
+  #       }
+  #     ]
+  #   }
+  # ]
 }
 
 resource "sdwan_service_lan_vpn_interface_ethernet_feature" "Service_VPN_Ethernet_Feature" {
