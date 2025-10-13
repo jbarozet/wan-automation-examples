@@ -1,8 +1,0 @@
-sdwan:
-  feature_profiles:
-    cli_profiles:
-      - name: TF_SDWAN_CLI
-        config:
-          cli_configuration: |
-            platform console serial
-            logging console critical
