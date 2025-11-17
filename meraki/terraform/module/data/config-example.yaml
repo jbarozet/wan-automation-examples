@@ -1,0 +1,16 @@
+# Rename to "config.yaml" and update with your own parameters.
+meraki:
+  domains:
+    - name: North America
+      organizations:
+        - name: org_name
+          managed: true
+          networks:
+          - name: network_name
+            product_types:
+              - appliance
+              - switch
+              - wireless
+            time_zone: America/Los_Angeles
+            notes: null
+            tags: []
