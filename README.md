@@ -69,6 +69,8 @@ Initialize and install dependencies:
 uv sync
 ```
 
+This initializes your environment by adding packages specified in the pyproject.toml file, ensuring all dependencies are installed as defined for your project.
+
 ## Notes
 
 The `CODE_OF_CONDUCT.md` reflects our standards for interaction.

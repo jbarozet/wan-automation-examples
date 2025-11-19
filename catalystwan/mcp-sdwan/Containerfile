@@ -1,0 +1,34 @@
+# Use Python slim image
+# FROM python:3.11-slim
+FROM python:3.13-slim-bookworm
+
+# update and install build-essential
+RUN apt-get update && apt-get install --no-install-recommends -y \
+        iputils-ping curl vim \
+        build-essential && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install uv
+ADD https://astral.sh/uv/install.sh /install.sh
+RUN chmod -R 755 /install.sh && /install.sh && rm /install.sh
+
+# Set up the UV environment path correctly
+ENV PATH="/root/.local/bin:${PATH}"
+
+# Set working directory
+WORKDIR /app
+
+# Copy the rest of your application's source code to the container
+# The '.' indicates to copy everything from the current directory on your host
+# into the WORKDIR (/app) in the container.
+COPY . .
+
+RUN uv sync
+
+ENV PATH="/app/.venv/bin:${PATH}"
+
+# Set Python unbuffered mode
+ENV PYTHONUNBUFFERED=1
+
+# Run the server
+CMD ["uv", "run", "sdwan_mcp_server.py"]

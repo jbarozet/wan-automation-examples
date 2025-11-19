@@ -15,20 +15,30 @@ venv.bak/
 .flake8
 #--- python -----------------
 __pycache__
+*.py[oc]
 *.py[cod]
 *$py.class
 *.pyc
 __pycache__
+build/
+dist/
+wheels/
+*.egg-info
 #--- Terraform -------------------------------
 .terraform
 .terraform.lock.hcl
 terraform.tfstate.backup
 terraform.tfstate
+# --- macOS -------------------------------
+.DS_Store
+*.swp
+*~
 #--- Project ----------------
-**/.DS_Store
+.env
+.env.*local
+.env.bak
 crash.log
 **/_archives
-payloads
 **/init.sh
 **/output
 **/sdwan_api.log
