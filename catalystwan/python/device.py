@@ -81,6 +81,7 @@ def ls(ctx):
             "Configured Hostname",
             "System IP",
             "Configured Site ID",
+            "Managed by:"
         ]
 
         table = list()
@@ -93,6 +94,7 @@ def ls(ctx):
                 item.get("host-name", "N/A"),
                 item.get("configuredSystemIP", "N/A"),  # Using .get() with default value
                 item.get("siteId", "N/A"),
+                item.get("managed-by", "N/A")
             ]
             table.append(tr)
 
